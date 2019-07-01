@@ -19,7 +19,7 @@ _无论是C++还是Java编写的网络框架，大多数都是基于Reactor模�
 ###### 2）作为NIO客户端，向服务端发起TCP连接；
 ###### 3）读取通信对端的请求或者应答消息；
 ###### 4）向通信对端发送消息请求或者应答消息。
-######Reactor单线程模型示意图如下所示：
+###### Reactor单线程模型示意图如下所示：
 ![单线程模式](https://github.com/licslan/playNetty/raw/master/images/netty1.png)
 
 
