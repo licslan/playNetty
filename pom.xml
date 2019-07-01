@@ -6,6 +6,8 @@
 	<modules>
 		<module>hello-netty</module>
 		<module>netty-im</module>
+		<module>netty-server</module>
+		<module>netty-client</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
