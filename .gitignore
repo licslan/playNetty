@@ -1,0 +1,65 @@
+# 解决提交过的忽略文件
+#$ git rm -r --cached a/2.txt                    // 删除a目录下的2.txt文件
+#$ git commit -m  "删除a目录下的2.txt文件"  // commit
+#$ git push  origin 分支名称
+# 执行过后在新建或更新.gitignore文件提交即可
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# svn file
+.svn/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# eclipse file
+.settings
+.classpath
+.project
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+/logs
+/.project
+/*.project
+*.project
+*.log
+*bin*
+
+target/
+logs/
+/logs
+
+# idea file
+.idea/
+*.iml
+
