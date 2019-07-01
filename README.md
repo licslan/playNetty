@@ -1,10 +1,10 @@
 ## playNetty
 
 ### 本项目暂时分为4个模块吧  
-###### 1.hello-netty 主要介绍netty一些简单的使用
-###### 2.netty-im 主要是即时聊天工具的springboot项目
-###### 3.netty-server 主要是介绍客户端连接的项目 主要有websocket http协议的请求 以及测试百万连接的测试
-###### 4.netty-client 主要是客户端发送百万连接模拟请求项目
+###### 一.hello-netty 主要介绍netty一些简单的使用
+###### 二.netty-im 主要是即时聊天工具的springboot项目
+###### 三.netty-server 主要是介绍客户端连接的项目 主要有websocket http协议的请求 以及测试百万连接的测试
+###### 四.netty-client 主要是客户端发送百万连接模拟请求项目
 
 
 
@@ -19,7 +19,7 @@ _无论是C++还是Java编写的网络框架，大多数都是基于Reactor模�
 ###### 2）作为NIO客户端，向服务端发起TCP连接；
 ###### 3）读取通信对端的请求或者应答消息；
 ###### 4）向通信对端发送消息请求或者应答消息。
-######Reactor单线程模型示意图如下所示：
+###### Reactor单线程模型示意图如下所示：
 ![单线程模式](https://github.com/licslan/playNetty/raw/master/images/netty1.png)
 
 
