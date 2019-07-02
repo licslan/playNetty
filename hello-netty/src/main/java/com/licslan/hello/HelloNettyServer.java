@@ -4,7 +4,10 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
+/**
+ * @author LICSLAN
+ * netty 服务器启动类
+ * */
 public class HelloNettyServer {
 
     public static void main(String[] args) {
