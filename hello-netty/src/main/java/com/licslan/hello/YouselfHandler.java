@@ -1,6 +1,7 @@
 package com.licslan.hello;
 
 import com.alibaba.fastjson.JSON;
+import com.licslan.dbdao.MessageDao;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -11,6 +12,7 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.net.SocketAddress;
 
@@ -20,6 +22,8 @@ import java.net.SocketAddress;
  * */
 @Slf4j
 public class YouselfHandler extends SimpleChannelInboundHandler<HttpObject> {
+    @Autowired
+    MessageDao messageDao;
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, HttpObject o){
         //获取channel
@@ -40,14 +44,16 @@ public class YouselfHandler extends SimpleChannelInboundHandler<HttpObject> {
             //显示客户端IP地址
             log.info("远程地址是=====>  "+channel.remoteAddress());
             //定义发送的数据消息
-            Person person = new Person();
-            person.setAge(28);
-            person.setName("LICSLAN");
+//            Person person = new Person();
+//            person.setAge(28);
+//            person.setName("LICSLAN");
 
             //TODO 这里可以涉及  http 请求第三方应用  比如
             //TODO springcloud的Feign 或者查询数据之类  也可以在外面再加入自己的yourselfhandler 来处理相关逻辑
 
-            ByteBuf byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(person), CharsetUtil.UTF_8);
+            //ByteBuf byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(person), CharsetUtil.UTF_8);
+
+            ByteBuf byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(messageDao.getList()), CharsetUtil.UTF_8);
             // 构建一个http response
             FullHttpResponse response =
                     new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,
