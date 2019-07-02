@@ -40,7 +40,7 @@ public class YouselfHandler extends SimpleChannelInboundHandler<HttpObject> {
             //显示客户端IP地址
             log.info("远程地址是=====>  "+channel.remoteAddress());
             //定义发送的数据消息
-            person person = new person();
+            Person person = new Person();
             person.setAge(28);
             person.setName("LICSLAN");
 
@@ -160,7 +160,7 @@ public class YouselfHandler extends SimpleChannelInboundHandler<HttpObject> {
 }
 
 @Data
-class person{
+class Person{
     private String name;
     private int age;
 }
