@@ -34,11 +34,3 @@ public class MessageDaoImpl implements MessageDao{
         return null;
     }
 }
-@Data
-class Hobby{
-    private String name;
-    private String type;
-    private int age;
-    private Long time;
-
-}

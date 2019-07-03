@@ -1,8 +1,8 @@
 package com.licslan.sb2netty;
 
 import com.alibaba.fastjson.JSON;
-import com.licslan.dbdao.MessageDao;
-import com.licslan.utils.SpringUtil;
+import com.licslan.dbdao.Hobby;
+import com.licslan.dbdao.MessageDaoImpl;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -13,38 +13,58 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.net.SocketAddress;
+import java.util.List;
 
 /**
- * 
- * @Description: 处理消息的handler
- * TextWebSocketFrame： 在netty中，是用于为websocket专门处理文本的对象，frame是消息的载体
+ * @author LICSLAN
+ * 处理消息的handler
  */
 @Slf4j
 @Component
 public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
 
-//	@Autowired
-//	private MessageDaoImpl messageDaoImpl;
-	/*上面的方式不行  需要手动获取bean*/
+	/**
+	 *   首先目前我写的项目是springboot+netty，在接收客户端传输的数据时调用service一直报null指针异常
+	 *   刚开始没有想到是service无法实例化的问题，一直在测试数据方面的问题，后来去群里讨论才知道问题所在
+	 *   我这里讲的netty接收数据的handler类，但是基本都大同小异
+	 *   如果我们直接在一个不是controller类的里面注入@Autowired的时候，而且还去调用就会报null指针
+	 *	 首先需要了解两个注解 @Component  跟 @PostConstruct
+	 *   spring注解中@component就是说把这个类交给Spring管理，因为不清楚这个类是属于哪个层面，所以就用@Component。
+	 *   PostContruct是spring框架的注解，在方法上加该注解会在项目启动的时候执行该方法，也可以理解为在spring容器初始化的时候执行该方法。
+	 * */
+
+	private static ChatHandler chatHandler;
+
+	//1.正常注入[记得主类也需要使用@Component注解]
+
+	@Autowired
+	private MessageDaoImpl messageDaoImpl;
+
+	//2.初始化构造方法一定要有
+
+	public ChatHandler() {
+
+	}
+
+	//3.容器初始化的时候进行执行-这里是重点
+
+	@PostConstruct
+	public void init() {
+		chatHandler = this;
+		chatHandler.messageDaoImpl = this.messageDaoImpl;
+	}
+
 
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, HttpObject o)
 			{
-//		// 获取客户端传输过来的消息
-//		String response = msg.toString();
-//		ByteBuf encoded = ctx.alloc().buffer(4 * response.length());
-//		encoded.writeBytes(response.getBytes());
-//		ctx.write(encoded);
-//		ctx.flush();
-
-
-				//获取channel
 				Channel channel = ctx.channel();
-
 				//如果是http请求
 				if(o instanceof HttpRequest){
 					SocketAddress socketAddress = channel.localAddress();
@@ -60,15 +80,19 @@ public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
 					//显示客户端IP地址
 					log.info("远程地址是=====>  "+channel.remoteAddress());
 					ByteBuf byteBuf;
-					//手动获取bean
-					MessageDao messageDaoImpl = (MessageDao)SpringUtil.getBean("messageDaoImpl");
-					log.info("the messageDaoImpl is "+messageDaoImpl);
-					if(null!=messageDaoImpl.getList()){
-						 byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(messageDaoImpl.getList()), CharsetUtil.UTF_8);
+
+					/*手动获取bean  后面待学习...*/
+					/*MessageDao messageDaoImpl = (MessageDao)SpringUtil.getBean("messageDaoImpl");*/
+					/*log.info("the messageDaoImpl is "+messageDaoImpl);*/
+
+					List<Hobby> list = chatHandler.messageDaoImpl.getList();
+					log.info(JSON.toJSONString(list));
+					if(list!=null){
+						 byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(list), CharsetUtil.UTF_8);
 					}else {
 						Lerson person = new Lerson();
-									person.setAge(28);
-									person.setName("LICSLAN");
+						person.setAge(28);
+						person.setName("LICSLAN");
 						 byteBuf = Unpooled.copiedBuffer(JSON.toJSONString(person), CharsetUtil.UTF_8);
 					}
 
@@ -102,4 +126,5 @@ public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
 class Lerson{
 	private String name;
 	private int age;
+	//TextWebSocketFrame： 在netty中，是用于为websocket专门处理文本的对象，frame是消息的载体
 }

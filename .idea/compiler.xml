@@ -13,11 +13,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hello-netty" target="1.7" />
+      <module name="hello-netty" target="1.8" />
       <module name="netty" target="1.8" />
-      <module name="netty-client" target="1.7" />
-      <module name="netty-im" target="1.7" />
-      <module name="netty-server" target="1.7" />
+      <module name="netty-client" target="1.8" />
+      <module name="netty-im" target="1.8" />
+      <module name="netty-server" target="1.8" />
       <module name="playNetty" target="1.8" />
     </bytecodeTargetLevel>
   </component>
