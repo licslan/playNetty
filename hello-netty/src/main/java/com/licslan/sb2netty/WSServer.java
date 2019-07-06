@@ -36,7 +36,11 @@ public class WSServer {
 	}
 	
 	public void start() {
-		this.future = server.bind(8088);
+		try {
+			this.future = server.bind(8088).sync();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.err.println("netty server 启动完毕... the port is 8088");
 	}
 }
