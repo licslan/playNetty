@@ -2,12 +2,19 @@ package com.licslan.sb2netty;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpServerCodec;
 import org.springframework.stereotype.Component;
 
 @Component
 public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
+
+    //第一种方法
+
+	private EventLoopGroup businessGroup = new NioEventLoopGroup(500);
+
 
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
@@ -48,7 +55,9 @@ public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
 		
 		// 自定义的handler
 
-		pipeline.addLast(new ChatHandler());
+		pipeline.addLast(businessGroup,new ChatHandler());
+
+		//pipeline.addLast(new ChatHandler());
 	}
 
 }

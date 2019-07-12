@@ -10,11 +10,14 @@ import io.netty.util.CharsetUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class ServerPlayHandler extends SimpleChannelInboundHandler<HttpObject> {
 
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(50);
     //定义请求次数
 
     private static AtomicInteger totalRequest = new AtomicInteger(0);
@@ -46,7 +49,11 @@ public class ServerPlayHandler extends SimpleChannelInboundHandler<HttpObject> {
 
             log.info("===============>"+JSON.toJSONString(person));
             // 把响应刷到客户端
-            channelHandlerContext.writeAndFlush(response);
+            //channelHandlerContext.writeAndFlush(response);
+					threadPool.submit(() -> {
+                        channelHandlerContext.channel().writeAndFlush(response);
+					});
+
         }
     }
 

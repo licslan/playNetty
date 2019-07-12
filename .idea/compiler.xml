@@ -10,6 +10,7 @@
         <module name="netty-client" />
         <module name="netty-im" />
         <module name="netty-server" />
+        <module name="netty-start" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +19,7 @@
       <module name="netty-client" target="1.8" />
       <module name="netty-im" target="1.8" />
       <module name="netty-server" target="1.8" />
+      <module name="netty-start" target="1.7" />
       <module name="playNetty" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -33,7 +33,7 @@ public class Server {
         NioEventLoopGroup workGroup = new NioEventLoopGroup();
 
         //下面的线程池来处理handler里面的业务逻辑  生产环境需要根据业务不断来测试和调整
-        NioEventLoopGroup xorkGroup = new NioEventLoopGroup(160);
+        //NioEventLoopGroup xorkGroup = new NioEventLoopGroup(160);
 
 
         // 启动辅助类
@@ -48,7 +48,8 @@ public class Server {
                         ChannelPipeline pipeline = socketChannel.pipeline();
                         //pipeline 添加相关的handler
                         pipeline.addLast(new HttpServerCodec());
-                        pipeline.addLast(xorkGroup,new ServerPlayHandler());
+                        /*pipeline.addLast(xorkGroup,new ServerPlayHandler());*/
+                        pipeline.addLast(new ServerPlayHandler());
                     }
                 });
 

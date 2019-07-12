@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/netty-client/netty-client.iml" filepath="$PROJECT_DIR$/netty-client/netty-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty-im/netty-im.iml" filepath="$PROJECT_DIR$/netty-im/netty-im.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty-server/netty-server.iml" filepath="$PROJECT_DIR$/netty-server/netty-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netty-start/netty-start.iml" filepath="$PROJECT_DIR$/netty-start/netty-start.iml" />
       <module fileurl="file://$PROJECT_DIR$/playNetty.iml" filepath="$PROJECT_DIR$/playNetty.iml" />
     </modules>
   </component>

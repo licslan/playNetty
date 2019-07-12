@@ -24,15 +24,18 @@ public class WSServer {
 	private EventLoopGroup mainGroup;
 	private EventLoopGroup subGroup;
 	private ServerBootstrap server;
+	//private EventLoopGroup xorkGroup;
 	private ChannelFuture future;
 	
 	public WSServer() {
 		mainGroup = new NioEventLoopGroup();
 		subGroup = new NioEventLoopGroup();
 		server = new ServerBootstrap();
+		//xorkGroup = new NioEventLoopGroup(100);
 		server.group(mainGroup, subGroup)
 			.channel(NioServerSocketChannel.class)
-			.childHandler(new WSServerInitialzer());
+			.childHandler(new WSServerInitialzer())
+			;
 	}
 	
 	public void start() {

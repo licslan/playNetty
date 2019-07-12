@@ -8,7 +8,8 @@
 		<module>netty-im</module>
 		<module>netty-server</module>
 		<module>netty-client</module>
-	</modules>
+        <module>netty-start</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

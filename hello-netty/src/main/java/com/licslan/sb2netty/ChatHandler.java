@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
+public class ChatHandler extends SimpleChannelInboundHandler<HttpObject>{
 
 	/**
 	 *   首先目前我写的项目是springboot+netty，在接收客户端传输的数据时调用service一直报null指针异常
@@ -58,6 +58,13 @@ public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
 		chatHandler = this;
 		chatHandler.messageDaoImpl = this.messageDaoImpl;
 	}
+
+
+
+	//第二种方法  线程池调优
+	//private static ExecutorService threadPool = Executors.newFixedThreadPool(1000);
+
+
 
 
 
@@ -108,6 +115,12 @@ public class ChatHandler extends SimpleChannelInboundHandler<HttpObject> {
 
 					// 把响应刷到客户端
 					ctx.writeAndFlush(response);
+
+
+					//第二种方式  线程池调优
+//					threadPool.submit(() -> {
+//						ctx.channel().writeAndFlush(response);
+//					});
 
 				}
 
