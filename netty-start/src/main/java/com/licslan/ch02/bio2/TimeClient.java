@@ -1,5 +1,7 @@
 package com.licslan.ch02.bio2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -9,6 +11,7 @@ import java.net.Socket;
  * 一请求一连接模式改  请求到了服务端会被封装了task投递到线程池
  * 不用每一个请求都创建一个线程
  * */
+@Slf4j
 public class TimeClient {
 
     public static void main(String[] args) {
@@ -22,12 +25,12 @@ public class TimeClient {
             socket = new Socket("127.0.0.1",8080);
             //读取服务端发送过来的信息 （输入流）
             in =new  BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()),true);
             //客户端发送消息到服务端
-            out.println("hello licslan");
+            out.println("query time order1");
+            log.info(" send order to server succeed");
             //打印从服务端接收到的信息
-            String s = in.readLine();
-            System.out.println(s);
+            log.info(in.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
