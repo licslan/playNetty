@@ -11,7 +11,7 @@ import java.util.concurrent.CountDownLatch;
  * @author LICSLAN
  * 异步非阻塞编程
  * */
-public class AioClient implements CompletionHandler<Void, AioClient> {
+public class ClientAio implements CompletionHandler<Void, ClientAio> {
 
     private CountDownLatch latch;
     private AsynchronousSocketChannel socketChannel;
@@ -38,7 +38,7 @@ public class AioClient implements CompletionHandler<Void, AioClient> {
     }
 
     @Override
-    public void completed(Void result, AioClient attachment) {
+    public void completed(Void result, ClientAio attachment) {
         byte[] bytes = "queryTimeOrder".getBytes();
         final ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
         writeBuffer.put(bytes);
@@ -87,7 +87,7 @@ public class AioClient implements CompletionHandler<Void, AioClient> {
     }
 
     @Override
-    public void failed(Throwable exc, AioClient attachment) {
+    public void failed(Throwable exc, ClientAio attachment) {
          exc.printStackTrace();
         try {
             socketChannel.close();
@@ -99,7 +99,7 @@ public class AioClient implements CompletionHandler<Void, AioClient> {
 
     public static void main(String[] args){
 
-        AioClient client = new AioClient();
+        ClientAio client = new ClientAio();
         client.start();
     }
 }
