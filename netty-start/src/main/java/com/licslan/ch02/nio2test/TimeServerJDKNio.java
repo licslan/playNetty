@@ -101,7 +101,7 @@ public class TimeServerJDKNio {
     }
 
     private void doWrite(SocketChannel sc, String response) throws IOException{
-        if(StringUtils.isEmpty(response)){
+        if(!StringUtils.isEmpty(response)){
             ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
             byteBuffer.put(response.getBytes());
             byteBuffer.flip();
